@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add to Cart</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .navbar .logo {
+            font-size: 1.5rem;
+            color: red;
+            font-weight: bold;
+        }
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        .navbar ul li a:hover {
+            color: red;
+        }
+        .navbar-icons {
+            display: flex;
+            gap: 15px;
+        }
+        .navbar-icons a {
+            text-decoration: none;
+            color: #333;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+        .navbar-icons a:hover {
+            color: red;
+        }
+
+        .header {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            font-size: 1.5rem;
+        }
+
+        .container {
+            margin: 20px auto;
+            padding: 20px;
+            max-width: 800px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .product {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding: 10px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .product img {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+        }
+
+        .product-info {
+            flex: 1;
+            margin-left: 20px;
+        }
+
+        .product-info h3 {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+
+        .product-info p {
+            margin: 5px 0;
+            color: #555;
+        }
+
+        .product-actions {
+            display: flex;
+            align-items: center;
+        }
+
+        .quantity {
+            display: flex;
+            align-items: center;
+        }
+
+        .quantity button {
+            padding: 5px 10px;
+            border: none;
+            background: #007bff;
+            color: white;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .quantity input {
+            width: 40px;
+            text-align: center;
+            margin: 0 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 5px;
+        }
+
+        .remove-btn {
+            padding: 5px 10px;
+            border: none;
+            background: #dc3545;
+            color: white;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-left: 15px;
+            font-size: 0.9rem;
+        }
+
+        .total {
+            text-align: right;
+            margin-top: 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .checkout-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            text-align: center;
+            margin-top: 20px;
+            text-decoration: none;
+        }
+
+        .checkout-btn:hover {
+            background: #218838;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">Rental.</div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="abouts.html">About</a></li>
+            <li><a href="product.html">Product</a></li>
+            <li><a href="#">Categories</a></li>
+            <li><a href="#">Review</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+        <div class="navbar-icons">
+            <a href="index.html">❤</a>
+            <a href="atc.html">🛒</a>
+            <a href="login.html">👤</a>
+        </div>
+    </nav>
+    <div class="header">Your Shopping Cart</div>
+
+    <div class="container">
+        <!-- Product 1 -->
+        <div class="product">
+            <img src="https://via.placeholder.com/80" alt="Product Image">
+            <div class="product-info">
+                <h3>Product Name</h3>
+                <p>$25.00</p>
+            </div>
+            <div class="product-actions">
+                <div class="quantity">
+                    <button onclick="decreaseQuantity(this)">-</button>
+                    <input type="number" value="1" min="1" readonly>
+                    <button onclick="increaseQuantity(this)">+</button>
+                </div>
+                <button class="remove-btn" onclick="removeProduct(this)">Remove</button>
+            </div>
+        </div>
+
+        <!-- Total and Checkout -->
+        <div class="total">Total: $25.00</div>
+        <a href="#" class="checkout-btn">Proceed to Checkout</a>
+    </div>
+
+    <script>
+        function increaseQuantity(button) {
+            const input = button.previousElementSibling;
+            input.value = parseInt(input.value) + 1;
+            updateTotal();
+        }
+
+        function decreaseQuantity(button) {
+            const input = button.nextElementSibling;
+            if (parseInt(input.value) > 1) {
+                input.value = parseInt(input.value) - 1;
+                updateTotal();
+            }
+        }
+
+        function removeProduct(button) {
+            const product = button.closest('.product');
+            product.remove();
+            updateTotal();
+        }
+
+        function updateTotal() {
+            const products = document.querySelectorAll('.product');
+            let total = 0;
+            products.forEach(product => {
+                const price = parseFloat(product.querySelector('.product-info p').textContent.replace('$', ''));
+                const quantity = parseInt(product.querySelector('.quantity input').value);
+                total += price * quantity;
+            });
+            document.querySelector('.total').textContent = `Total: $${total.toFixed(2)}`;
+        }
+    </script>
+</body>
+</html>
