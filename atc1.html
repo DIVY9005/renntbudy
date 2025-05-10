@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Your Rental Cart</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f8f8f8;
+      padding: 2rem;
+    }
+    .cart-item {
+      display: flex;
+      align-items: center;
+      background: white;
+      margin-bottom: 15px;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .cart-item img {
+      width: 100px;
+      height: auto;
+      margin-right: 20px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Your Rental Cart</h1>
+  <div id="cart-container"></div>
+
+  <script>
+    const container = document.getElementById('cart-container');
+    const cart = JSON.parse(localStorage.getItem("rentalCart")) || [];
+
+    if (cart.length === 0) {
+      container.innerHTML = "<p>Your cart is empty.</p>";
+    } else {
+      cart.forEach(item => {
+        const div = document.createElement("div");
+        div.className = "cart-item";
+        div.innerHTML = `
+          <img src="${item.img}" alt="${item.name}" />
+          <div>
+            <h3>${item.name}</h3>
+            <p>Price: ₹${item.price}/day</p>
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    }
+  </script>
+</body>
+</html>
